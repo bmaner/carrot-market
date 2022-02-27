@@ -7,21 +7,35 @@ const Home: NextPage = () => {
   return <div className="bg-slate-400 py-20 px-10 flex flex-col space-y-5 min-h-screen">
     <div className="bg-white p-6 rounded-3xl shadow-xl">
       <span className="font-semibold text-3xl">Select Item</span>
-      <div className="flex justify-between my-2" >
+      {/* <div className="flex justify-between my-2" >
         <span className="text-gray-500">Grey Chair</span>
         <span className="font-semibold">$19</span>
       </div>
       <div className="flex justify-between">
         <span className="text-gray-500">Tooly Table</span>
         <span className="font-semibold">$19</span>
-      </div>
+      </div> */}
+      <ul>
+        {[1, 2, 3, 4, 5].map((i) => {
+          return (
+            <div className="flex justify-between my-2 odd:bg-blue-50 even:bg-red-50 only:bg-red-50" key={i} >
+            {/* <div className="flex justify-between my-2 first:bg-blue-50 last:bg-blue-50 only:bg-red-50" key={i} > */}
+          <span className="text-gray-500">Grey Chair</span>
+          <span className="font-semibold">$19</span>
+        </div>)
+        })}
+      </ul>
+      <ul>
+        {["a", "b", "c",""].map((c, i) => <li className="bg-yellow-50 py-3 empty:hidden" key={i}>{c}</li>)}
+      </ul>
+
       <div className="flex justify-between mt-2 pt-2 border-t-2 border-dashed">
         <span>Total</span>
         <span className="font-semibold">$10</span>
       </div>
       <button className="mt-5 bg-blue-500 text-white p-3 text-center rounded-xl w-2/4 mx-auto block hover:bg-teal-500 hover:text-black active:bg-yellow-500 focus:bg-red-500">Checkout</button>
     </div>
-    <div className="bg-white overflow-hidden rounded-3xl shadow-xl">
+    <div className="bg-white overflow-hidden rounded-3xl shadow-xl group">
       <div className="bg-blue-500 p-6 pb-14">
         <span className="text-white text-2xl">Profile</span>
       </div>
@@ -31,7 +45,7 @@ const Home: NextPage = () => {
               <span className="text-sm text-gray-500 ">Orders</span>
               <span className="font-medium">340</span>
             </div>
-            <div className="h-24 w-24 bg-zinc-200 rounded-full"/>
+            <div className="h-24 w-24 bg-zinc-200 rounded-full group-hover:bg-white transition-colors"/>
             <div className="flex flex-col items-center">
               <span className="text-sm text-gray-500 ">Spent</span>
               <span className="font-medium">$340</span>
@@ -73,7 +87,18 @@ const Home: NextPage = () => {
         </div>
       </div>
     </div>
-    <div className="bg-white p-10 rounded-2xl shadow-xl"></div>
+    <div className="bg-white p-10 rounded-2xl shadow-xl">
+      <form className="flex flex-col space-y-2 bg-blue-100 p-5 focus-within:bg-blue-500">
+        {/* <input type="text" required placeholder="Username" className="required:border-2 border-yellow-100 invalid:bg-red-100 placeholder:text-red-300 "/> */}
+        {/* <input disabled type="password" placeholder="Password" className="disabled:opacity-30 placeholder-shown:bg-lime-200" /> */}
+        {/* <input  type="password" required placeholder="Password" className=""/> */}
+        <input type="text" required placeholder="Username" className="border p-1 border-gray-400 rounded-lg peer"/>
+        <span className="peer-valid:hidden peer-invalid:block peer-invalid:text-red-500">This input is invalid</span>
+        <span className="hidden peer-valid:block peer-valid:text-blue-500 peer-invalid:hidden">Awesome username</span>
+        <span className="hidden peer-hover:block">Hello</span>
+        <input type="submit" value="login" className="bg-white" />
+      </form>
+    </div>
   </div>
 }
 
