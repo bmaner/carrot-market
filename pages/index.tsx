@@ -4,8 +4,10 @@ const Home: NextPage = () => {
   // tailwind에서는 숫자 10이 2.5rem(40px)을 의미한다.
   // 그러므로 4가 1rem 16px이겠구만
   // flex flex-col space-y-5 대신에 grid gap-10을 넣을 수도 있다. 
-  return <div className="bg-slate-400 py-20 px-10 flex flex-col space-y-5 min-h-screen">
-    <div className="bg-white p-6 rounded-3xl shadow-xl">
+  // return <div className="bg-slate-400 py-20 px-10 flex flex-col space-y-5 min-h-screen">
+  return <div className="bg-slate-400 py-20 px-10 grid gap-10 xl:grid-cols-3 lg:grid-cols-2 min-h-screen xl:place-content-center">
+    <div className="bg-white p-6 rounded-3xl shadow-xl flex flex-col justify-between">
+    {/* <div className="bg-white p-6 rounded-3xl shadow-xl sm:bg-red-300 lg:bg-blue-200 xl: 2xl: md:bg-violet-300"> */}
       <span className="font-semibold text-3xl">Select Item</span>
       {/* <div className="flex justify-between my-2" >
         <span className="text-gray-500">Grey Chair</span>
@@ -18,16 +20,17 @@ const Home: NextPage = () => {
       <ul>
         {[1, 2, 3, 4, 5].map((i) => {
           return (
-            <div className="flex justify-between my-2 odd:bg-blue-50 even:bg-red-50 only:bg-red-50" key={i} >
+            <div className="flex justify-between my-2" key={i} >
+            {/* <div className="flex justify-between my-2 odd:bg-blue-50 even:bg-red-50 only:bg-red-50" key={i} > */}
             {/* <div className="flex justify-between my-2 first:bg-blue-50 last:bg-blue-50 only:bg-red-50" key={i} > */}
           <span className="text-gray-500">Grey Chair</span>
           <span className="font-semibold">$19</span>
         </div>)
         })}
       </ul>
-      <ul>
+      {/* <ul>
         {["a", "b", "c",""].map((c, i) => <li className="bg-yellow-50 py-3 empty:hidden" key={i}>{c}</li>)}
-      </ul>
+      </ul> */}
 
       <div className="flex justify-between mt-2 pt-2 border-t-2 border-dashed">
         <span>Total</span>
@@ -36,7 +39,7 @@ const Home: NextPage = () => {
       <button className="mt-5 bg-blue-500 text-white p-3 text-center rounded-xl w-2/4 mx-auto block hover:bg-teal-500 hover:text-black active:bg-yellow-500 focus:bg-red-500">Checkout</button>
     </div>
     <div className="bg-white overflow-hidden rounded-3xl shadow-xl group">
-      <div className="bg-blue-500 p-6 pb-14">
+      <div className=" p-6 pb-14 xl:pb-40 landscape:bg-teal-200 portrait:bg-blue-500">
         <span className="text-white text-2xl">Profile</span>
       </div>
       <div className="rounded-3xl p-6 relative -top-5 bg-white">
@@ -57,7 +60,7 @@ const Home: NextPage = () => {
         </div>
       </div>
     </div>
-    <div className="bg-white p-6 rounded-3xl shadow-xl">
+    <div className="bg-white p-6 rounded-3xl shadow-xl lg:col-span-2 xl:col-span-1  ">
       <div className="flex mb-5 justify-between items-center">
         <span>⬅️</span>
         <div className="space-x-3">
@@ -99,6 +102,23 @@ const Home: NextPage = () => {
         <input type="submit" value="login" className="bg-white" />
       </form>
     </div>
+    {/* <div className="bg-white p-10 rounded-2xl shadow-xl"> */}
+      {/* <div className="flex flex-col space-y-2 p-5"> */}
+        {/* <details className="select-none open:bg-indigo-300 open:text-white">  */}
+          {/* <summary className="cursor-pointer">What is my fav. food.</summary> */}
+          {/* <span className="selection:bg-indigo-300 selection:text-white">김치</span> */}
+          {/* select none을 하면 드래그 자체가 안되게 하는 것 */}
+        {/* </details> */}
+        {/* <ul className="list-decimal marker:text-teal-500"> */}
+          {/* list-decimal => num, list-disc => o, marker는 list를 불러와서 스타일링할 수 있게 해줌 */}
+          {/* <li>안녕</li> */}
+          {/* <li>하이</li> */}
+          {/* <li>곤니치와</li> */}
+        {/* </ul> */}
+        {/* <input type="file" className="file:hover:text-purple-700 file:hover:bg-violet-200 file:hover:border-purple-400 file:hover:border file:cursor-pointer file:transition-colors file:border-0 file:rounded-xl file:px-3 file:bg-indigo-500 file:text-white"/> */}
+        {/* <p className="first-letter:text-7xl first-letter:hover:text-purple-700 first-letter:hover:transition-colors first-line:bg-violet-200">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit commodi fugit maiores voluptatem facere inventore expedita voluptates, iste atque repellendus minus quibusdam mollitia vero dolores repellat error, cupiditate dolore consequuntur. </p> */}
+      {/* </div> */}
+    {/* </div> */}
   </div>
 }
 
