@@ -11,5 +11,5 @@ module.exports = {
   //다크모드를 사용 시 컴퓨터의 다크모드 설정을 따라가게 할 것인지 아니면 리액트나 JS로 직접 토글 시킬건지를 설정해야함
   darkMode: "media",
   //컴퓨터의 다크모드 설정을 따라가게 하려면 media, 리액트나 js로 따라하게 하려면 class를 입력해야함
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };
