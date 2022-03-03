@@ -40,13 +40,14 @@ export default function Enter() {
           </div>
         </div>
         <form className="flex flex-col mt-8">
-          <label className="text-sm font-medium text-gray-700">
+          <label htmlFor="input" className="text-sm font-medium text-gray-700">
             {method === "email" ? "Email address" : null}
             {method === "phone" ? "Phone number" : null}
           </label>
           <div className="mt-1">
             {method === "email" ? (
               <input
+                id="input"
                 className=" rounded-md shadow-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 placeholder-gray-400 appearance-none w-full px-3 py-2 border border-gray-300"
                 type="email"
                 required
@@ -58,6 +59,7 @@ export default function Enter() {
                   +82
                 </span>
                 <input
+                  id="input"
                   type="number"
                   className="rounded-md rounded-l-none focus:outline-none focus:ring-orange-500 focus:border-orange-500 placeholder-gray-400 appearance-none w-full px-3 py-2 border-transparent"
                   required
