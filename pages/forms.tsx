@@ -1,66 +1,77 @@
-import { passThroughSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
-import React, { useState } from "react";
+import { FieldErrors, useForm } from "react-hook-form";
+// Less code (checked)
+// Better validation
+// Better Errors(set ,clear, display)
+// Have control over inputs
+// Don't deal with event (checked)
+// Easier Inputs (checked)
+
+interface LoginForm {
+  username: string;
+  password: string;
+  email: string;
+  errors?: string;
+}
 
 export default function Forms() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [formErrors, setFormsError] = useState("");
-  const onUsernameChange = (event: React.SyntheticEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = event;
-    setUsername(value);
+  const {
+    register,
+    watch,
+    handleSubmit,
+    setError,
+    reset,
+    resetField,
+    formState: { errors },
+  } = useForm<LoginForm>({
+    mode: "onChange", // default는 onSubmit으로 되어있다.
+  });
+  //register function의 역할 : input과 state를 연결
+  //watch function의 역할 : input의 value에 무엇이 들어왔는지 보기 위한 함수
+  //formState 가져오면 onInvalid 함수 밖에서도 Erros 객체를 가져올 수 있고, 이를 ui에도 보여줄 수 있다.
+  console.log(watch());
+  const onValid = (data: LoginForm) => {
+    console.log("im valid baby");
+    setError("username", { message: "Taken username" });
+    // reset();
+    resetField("password");
   };
-  const onEmailChange = (event: React.SyntheticEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = event;
-    setFormsError("");
-    setEmail(value);
+  const onInvalid = (errors: FieldErrors) => {
+    console.log(errors);
   };
-  const onPasswordChange = (event: React.SyntheticEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = event;
-    setPassword(value);
-  };
-  const onSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(username, email, password);
-    if (username === "" || email === "" || password === "") {
-      setFormsError("모든 필드는 필수입니다.");
-    }
-    if (!email.includes("@")) {
-      setFormsError("이메일 형식을 준수해주세요.");
-    }
-  };
+
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit(onValid, onInvalid)}>
       <input
-        required
-        onChange={onUsernameChange}
-        value={username}
+        {...register("username", {
+          required: "username is required",
+          minLength: {
+            message: "이름은 5글자 이상이어야 합니다.",
+            value: 5,
+          },
+        })}
         type="text"
         placeholder="Username"
-        minLength={5}
       ></input>
+      {errors.username?.message}
       <input
-        required
-        onChange={onEmailChange}
-        value={email}
+        {...register("email", {
+          required: "email is required",
+          validate: {
+            notGmail: (value) =>
+              !value.includes("@gmail.com") || "Gmail은 사용할 수 없습니다.",
+          },
+        })}
         type="email"
         placeholder="Email "
+        className={`${Boolean(errors.email) ? "border-red-500" : ""}`}
       ></input>
+      {errors.email?.message}
       <input
-        required
-        onChange={onPasswordChange}
-        value={password}
+        {...register("password", { required: "password is required" })}
         type="password"
         placeholder="Password"
       ></input>
       <input type="submit" value="Create Account"></input>
-      {formErrors}
     </form>
   );
 }
