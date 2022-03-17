@@ -5,23 +5,39 @@ import { NextApiRequest, NextApiResponse } from "next";
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { phone, email } = req.body;
   const payload = phone ? { phone: +phone } : { email };
-  const user = await client.user.upsert({
-    where: {
-      ...payload,
-      // ...(phone && { phone: +phone }),
-      // ...(email && { email: email }),
-      // ...(phone ? { phone: +phone } : {}), 효과는 위와 같음
-      // ...(email ? { email: email } : {}), 효과는 위와 같음
+  // const user = await client.user.upsert({
+  //   where: {
+  //     ...payload,
+  //     // ...(phone && { phone: +phone }),
+  //     // ...(email && { email: email }),
+  //     // ...(phone ? { phone: +phone } : {}), 효과는 위와 같음
+  //     // ...(email ? { email: email } : {}), 효과는 위와 같음
+  //   },
+  //   create: {
+  //     name: "Anonymous",
+  //     ...payload,
+  //     // ...(phone && { phone: +phone }),
+  //     // ...(email && { email: email }),
+  //   },
+  //   update: {},
+  // });
+  const token = await client.token.create({
+    data: {
+      payload: "1234",
+      user: {
+        connectOrCreate: {
+          where: {
+            ...payload,
+          },
+          create: {
+            name: "Anonymous",
+            ...payload,
+          },
+        },
+      },
     },
-    create: {
-      name: "Anonymous",
-      ...payload,
-      // ...(phone && { phone: +phone }),
-      // ...(email && { email: email }),
-    },
-    update: {},
   });
-  console.log(user);
+  console.log(token);
   // if (email) {
   //   user = await client.user.findUnique({
   //     where: {
