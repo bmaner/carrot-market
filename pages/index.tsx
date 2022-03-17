@@ -9,6 +9,7 @@ const Home: NextPage = () => {
       <div className="flex flex-col space-y-5 divide-y">
         {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
           <Item
+            key={i}
             title="New iPhone 14"
             price={99}
             comments={1}

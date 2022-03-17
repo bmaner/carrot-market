@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Button from "../components/button";
-import Input from "../components/input";
-import { cls } from "../libs/utils";
+import Button from "@components/button";
+import Input from "@components/input";
+import useMutation from "@libs/client/useMutation";
+import { cls } from "@libs/client/utils";
 
 interface EnterForm {
   email?: string;
@@ -10,6 +11,7 @@ interface EnterForm {
 }
 
 export default function Enter() {
+  const [enter, { loading, data, error }] = useMutation("/api/users/enter");
   const [submitting, setSubmitting] = useState(false);
   const { register, reset, handleSubmit } = useForm<EnterForm>();
   const [method, setMethod] = useState<"email" | "phone">("email");
@@ -21,21 +23,22 @@ export default function Enter() {
     reset();
     setMethod("phone");
   };
-  const onValid = (data: EnterForm) => {
-    setSubmitting(true);
-    fetch("/api/users/enter", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      //http 요청 내서 클라이언트가 서버에게 어떤 유형의 데이터가 실제로 전송됐는지 알려줌.
-      //서버에서 req.body.email로 접근 가능하게 함. 이전에는 undefined였지만 content-type을 지정해줌으로 데이터를 정확히 파악할 수 있기때문
-    }).then(() => {
-      setSubmitting(false);
-    });
+  const onValid = (validForm: EnterForm) => {
+    // setSubmitting(true);
+    // fetch("/api/users/enter", {
+    //   method: "POST",
+    //   body: JSON.stringify(validForm),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   //http 요청 내서 클라이언트가 서버에게 어떤 유형의 데이터가 실제로 전송됐는지 알려줌.
+    //   //서버에서 req.body.email로 접근 가능하게 함. 이전에는 undefined였지만 content-type을 지정해줌으로 데이터를 정확히 파악할 수 있기때문
+    // }).then(() => {
+    //   setSubmitting(false);
+    // });
+    enter(validForm);
   };
-
+  console.log(loading, data, error);
   return (
     <div className="mt-16 px-4">
       <h3 className="text-3xl font-bold text-center">Enter to Carrot</h3>
